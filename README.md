@@ -27,20 +27,20 @@
 
 ## Начало работы
 
-1. Клонируйте продуктовый репозиторий:
+1. Установите madarch — одну программу, ничего больше не нужно:
+   ```sh
+   npm install -g madarch
+   ```
+   Без установки: `npx madarch …`. Без Node: `curl -fsSL https://raw.githubusercontent.com/shady2k/madarch/main/scripts/install.sh | sh` (Linux и macOS).
+
+   > Первый выпуск madarch ещё не опубликован (задача `madarch-lfhu.2`: сборка под Linux, macOS и Windows и проверка на чистых машинах). До него эти команды не работают.
+
+2. Получите продукт и покажите его вики:
    ```sh
    git clone https://github.com/shady2k/madarch-product.git
    cd madarch-product
-   ```
-2. Покажите wiki продукта:
-   ```sh
    madarch serve --product .
    ```
-   Пока не вышел релиз с этой командой, запустите её из checkout репозитория madarch:
-   ```sh
-   bun scripts/madarch.ts serve --product <path>
-   ```
-   Вместо `<path>` укажите путь к этому продуктовому репозиторию.
 3. Подключите репозиторий с кодом. Подключение командой `madarch repo add` появится в madarch (задача `madarch-74k4`); до тех пор можно создать ссылку вручную:
    ```sh
    ln -s <путь к копии> repos/madarch
