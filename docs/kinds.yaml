@@ -1,0 +1,168 @@
+contract: 1
+# Типы документов продуктового репозитория. Контрактная версия указана выше.
+# Имена типов, подсказки и стадии заданы на русском языке.
+
+stages:
+  - id: idea
+  - id: requirements
+  - id: design
+  - id: build
+  - id: verify
+  - id: release
+  - id: operate
+kinds:
+  - name: Vision
+    prefix: VIS
+    folder: docs/vision.md
+    stage: idea
+    hint: "зачем существует продукт, для кого он и какой результат обещает; неизвестное фиксируется вопросами, а слова владельца — источниками"
+  - name: Roadmap
+    prefix: ROA
+    folder: docs/roadmap.md
+    stage: idea
+    hint: "что планируется дальше и почему; сверяйте порядок с текущей вехой и решениями владельца"
+  - name: Milestone
+    prefix: MIL
+    folder: docs/milestones
+    stage: idea
+    hint: "устав версии: результаты, проверяемые критерии и исключения; сверяйте статус с трекером"
+  - name: Source
+    prefix: S
+    folder: docs/sources
+    stage: idea
+    hint: "дословная запись источника; другие документы цитируют её с указанием строк"
+  - name: Hypothesis
+    prefix: H
+    folder: docs/hypotheses
+    stage: idea
+    hint: "проверяемое убеждение с тестом, метрикой и порогом; результат фиксируется после проверки"
+    links:
+      - field: Grew from
+        targets:
+          - Vision
+          - Source
+          - Open question
+        backlink: Grew into
+        cardinality: many
+        required: true
+  - name: Open question
+    prefix: Q
+    folder: docs/questions
+    stage: idea
+    hint: "неизвестное, ответственный за ответ и способ закрытия; ответ или обоснованное «не относится» закрывает вопрос"
+    links:
+      - field: Concerns
+        targets:
+          - Vision
+          - Practice
+          - Source
+          - Hypothesis
+          - User story
+          - Use case
+          - Product requirement
+          - Open question
+          - Prototype
+          - Result
+        backlink: Concerned by
+        cardinality: many
+        required: true
+  - name: Prototype
+    prefix: P
+    folder: docs/prototypes
+    stage: idea
+    hint: "временный код для проверки гипотезы; результат сохраняется отдельной записью"
+    links:
+      - field: Tests
+        targets:
+          - Hypothesis
+        backlink: Tested by
+        cardinality: many
+        required: true
+  - name: Result
+    prefix: R
+    folder: docs/results
+    stage: idea
+    hint: "что показала проверка относительно порога: подтверждение, опровержение или неопределённость"
+    links:
+      - field: Of
+        targets:
+          - Prototype
+        backlink: Observed in
+        cardinality: many
+        required: true
+  - name: User story
+    prefix: US
+    folder: docs/stories
+    stage: requirements
+    hint: "ценность для одной роли; проверяется сценариями и требованиями, которые из неё выросли"
+    links:
+      - field: Grew from
+        targets:
+          - Vision
+          - Hypothesis
+        backlink: Grew into
+        cardinality: many
+        required: true
+  - name: Use case
+    prefix: UC
+    folder: docs/use-cases
+    stage: requirements
+    hint: "цель пользователя, основной успешный сценарий и альтернативы"
+    links:
+      - field: Serves
+        targets:
+          - User story
+        backlink: Served by
+        cardinality: many
+        required: true
+  - name: Product requirement
+    prefix: FR
+    folder: docs/requirements
+    stage: requirements
+    hint: "наблюдаемый результат для пользователя; технические спецификации ссылаются на него по идентификатору"
+    links:
+      - field: Serves
+        targets:
+          - Use case
+          - User story
+        backlink: Served by
+        cardinality: many
+        required: true
+  - name: Decision
+    prefix: DEC
+    folder: docs/decisions
+    stage: design
+    hint: "важный выбор и его причина; полная запись находится в репозитории движка"
+  - name: Design record
+    prefix: DES
+    folder: docs/changes
+    stage: design
+    hint: "проектирование одного изменения: основания, варианты и принятое решение"
+  - name: Architecture
+    prefix: ARC
+    folder: docs/system/architecture.md
+    stage: design
+    hint: "как устроен движок; описание отражает исходный код и его границы"
+  - name: Capability
+    prefix: CAP
+    folder: docs/system/capabilities
+    stage: design
+    hint: "принятое поведение движка в виде требований и сценариев"
+  - name: Change record
+    prefix: CHG
+    folder: docs/changes
+    stage: build
+    hint: "изменение поведения движка и его критерии приёмки"
+  - name: Exploration
+    prefix: EXP
+    folder: docs/explorations
+    stage: idea
+    hint: "вопросы и наблюдения, не создающие обязательств"
+  - name: Practice
+    prefix: PRA
+    folder: docs/practices
+    stage: operate
+    hint: "правило работы, полученное из опыта и при необходимости выведенное из действия"
+    statuses:
+      - active
+      - retired
