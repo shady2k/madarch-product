@@ -1,0 +1,6 @@
+schemaVersion: 1
+id: madarch
+name: madarch
+repos:
+  - name: madarch
+    url: https://github.com/shady2k/madarch.git
