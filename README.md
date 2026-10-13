@@ -1,16 +1,16 @@
 # madarch — продукт
 
-Это продуктовый репозиторий madarch. Здесь собраны видение, требования, решения, вехи и открытые вопросы. Исходный код хранится отдельно в [shady2k/madarch](https://github.com/shady2k/madarch) и подключается в `repos/`.
+Это продуктовый репозиторий madarch. Здесь собраны видение, требования, решения, вехи и открытые вопросы. Исходный код хранится отдельно в [shady2k/madarch](https://github.com/shady2k/madarch).
 
 ## Структура репозитория
 
-- `workspace.yaml` — имя продукта и список его code repositories с URL; `make init` использует этот список.
+- `workspace.yaml` — идентификатор и имя продукта, а также список связанных code repositories и их URL.
 - `AGENTS.md` — правила ведения продуктовых документов.
 - `docs/` — продуктовые документы:
   - `decisions/` — принятые решения;
   - `hypotheses/` — гипотезы;
   - `milestones/` — вехи и их границы;
-  - `prototypes/` — продуктовые прототипы и связанные записи;
+  - `prototypes/` — записи о прототипах;
   - `questions/` — открытые вопросы;
   - `requirements/` — требования;
   - `results/` — результаты проверки гипотез;
@@ -18,13 +18,12 @@
   - `stories/` — истории пользователей;
   - `use-cases/` — варианты использования.
 - `model/` — модель предметной области и архитектуры продукта.
-- `prototypes/` — отдельные экспериментальные материалы и прототипы.
-- `repos/` — локальные checkout code repositories из `workspace.yaml`. Их содержимое не коммитится в этот репозиторий.
-- `Makefile` — команды `init`, `serve`, `check` и `help`.
-- `.gitignore` — исключает checkout из `repos/`, сохраняя `repos/.gitkeep`.
-- `.gitkeep` в `repos/` — сохраняет пустую папку `repos/` в Git.
-- `scripts/init.mjs` — реализация `make init`, без дополнительных npm-зависимостей.
-- `README.md` — это описание структуры и начала работы.
+- `prototypes/` — экспериментальные материалы и прототипы.
+- `repos/` — локальные копии code repositories; их содержимое не коммитится в этот репозиторий.
+- `.gitignore` — исключает содержимое `repos/`, сохраняя `repos/.gitkeep`.
+- `repos/.gitignore` — исключает локальные файлы в `repos/`, сохраняя служебные файлы папки.
+- `repos/.gitkeep` — сохраняет пустую папку `repos/` в Git.
+- `README.md` — описание структуры репозитория и начало работы.
 
 ## Начало работы
 
@@ -33,23 +32,24 @@
    git clone https://github.com/shady2k/madarch-product.git
    cd madarch-product
    ```
-2. Подключите code repositories из `workspace.yaml`:
+2. Покажите wiki продукта:
    ```sh
-   make init
+   madarch serve --product .
    ```
-   Если нужный checkout уже есть, укажите путь через переменную с именем репозитория в верхнем регистре (дефисы заменяются на подчёркивания):
+   Пока не вышел релиз с этой командой, запустите её из checkout репозитория madarch:
    ```sh
-   make init MADARCH=/путь/к/checkout
+   bun scripts/madarch.ts serve --product <path>
    ```
-   Команда проверит, что путь — git checkout и его `origin` совпадает с URL из `workspace.yaml`, затем создаст ссылку `repos/madarch`. Существующий путь `repos/<name>` команда оставляет без изменений. Перемещение существующего checkout не автоматизируется: переместите его вручную, затем вызовите `make init` с его новым путём.
-
-   В Windows вместо символической ссылки можно создать junction:
+   Вместо `<path>` укажите путь к этому продуктовому репозиторию.
+3. Подключите репозиторий с кодом. Подключение командой `madarch repo add` появится в madarch (задача `madarch-74k4`); до тех пор можно создать ссылку вручную:
+   ```sh
+   ln -s <путь к копии> repos/madarch
+   ```
+   В Windows вместо символической ссылки используйте directory junction:
    ```cmd
-   mklink /J repos\madarch C:\путь\к\checkout
+   mklink /J repos\madarch <путь к копии>
    ```
-   `Makefile` рассчитан на POSIX make и `sh`; для команд `make` используйте POSIX-совместимую среду.
-3. Запустите продукт:
+   Или клонируйте репозиторий сразу в `repos/madarch`:
    ```sh
-   make serve
+   git clone https://github.com/shady2k/madarch.git repos/madarch
    ```
-   Команда вызывает `madarch serve --product .`. Если `madarch` не найден в `PATH`, установите движок: клонируйте [shady2k/madarch](https://github.com/shady2k/madarch), выполните в его каталоге `bun link`, затем повторите команду.
