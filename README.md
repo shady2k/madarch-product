@@ -31,7 +31,7 @@
    ```sh
    npm install -g madarch
    ```
-   Без установки: `npx madarch …`. Без Node: `curl -fsSL https://raw.githubusercontent.com/shady2k/madarch/main/scripts/install.sh | sh` (Linux и macOS).
+   Через Homebrew (macOS и Linux): `brew install shady2k/tap/madarch`. Без установки: `npx madarch …`. Без Node и Homebrew: `curl -fsSL https://raw.githubusercontent.com/shady2k/madarch/main/scripts/install.sh | sh` (Linux и macOS).
 
    > Первый выпуск madarch ещё не опубликован (задача `madarch-lfhu.2`: сборка под Linux, macOS и Windows и проверка на чистых машинах). До него эти команды не работают.
 
