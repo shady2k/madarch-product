@@ -1,37 +1,68 @@
 contract: 1
+overview:
+  audience:
+    document: docs/vision.md
+    section: Audience
+  problem:
+    document: docs/vision.md
+    section: Problem
+  outcome:
+    document: docs/vision.md
+    section: Outcome
+  currentMilestone:
+    document: docs/milestones/MIL-005-standalone.md
+    section: Current milestone
+  milestoneState:
+    document: docs/milestones/MIL-005-standalone.md
+    section: Status
+  nextStep:
+    document: docs/milestones/MIL-005-standalone.md
+    section: Next step
 # Типы документов продуктового репозитория. Контрактная версия указана выше.
-# Имена типов, подсказки и стадии заданы на русском языке.
+# Имена и подсказки остаются стабильными идентификаторами; метки задают видимые названия типов и стадий на английском и русском.
 
 stages:
   - id: idea
+    labels: {en: "Idea", ru: "Идея"}
   - id: requirements
+    labels: {en: "Requirements", ru: "Требования"}
   - id: design
+    labels: {en: "Design", ru: "Проектирование"}
   - id: build
+    labels: {en: "Build", ru: "Разработка"}
   - id: verify
+    labels: {en: "Verify", ru: "Проверка"}
   - id: release
+    labels: {en: "Release", ru: "Выпуск"}
   - id: operate
+    labels: {en: "Operate", ru: "Эксплуатация"}
 kinds:
   - name: Vision
+    labels: {en: "Vision", ru: "Видение"}
     prefix: VIS
     folder: docs/vision.md
     stage: idea
     hint: "зачем существует продукт, для кого он и какой результат обещает; неизвестное фиксируется вопросами, а слова владельца — источниками"
   - name: Roadmap
+    labels: {en: "Roadmap", ru: "Дорожная карта"}
     prefix: ROA
     folder: docs/roadmap.md
     stage: idea
     hint: "что планируется дальше и почему; сверяйте порядок с текущей вехой и решениями владельца"
   - name: Milestone
+    labels: {en: "Milestone", ru: "Веха"}
     prefix: MIL
     folder: docs/milestones
     stage: idea
     hint: "устав версии: результаты, проверяемые критерии и исключения; сверяйте статус с трекером"
   - name: Source
+    labels: {en: "Source", ru: "Источник"}
     prefix: S
     folder: docs/sources
     stage: idea
     hint: "дословная запись источника; другие документы цитируют её с указанием строк"
   - name: Hypothesis
+    labels: {en: "Hypothesis", ru: "Гипотеза"}
     prefix: H
     folder: docs/hypotheses
     stage: idea
@@ -46,6 +77,7 @@ kinds:
         cardinality: many
         required: true
   - name: Open question
+    labels: {en: "Open question", ru: "Открытый вопрос"}
     prefix: Q
     folder: docs/questions
     stage: idea
@@ -67,6 +99,7 @@ kinds:
         cardinality: many
         required: true
   - name: Prototype
+    labels: {en: "Prototype", ru: "Прототип"}
     prefix: P
     folder: docs/prototypes
     stage: idea
@@ -79,6 +112,7 @@ kinds:
         cardinality: many
         required: true
   - name: Result
+    labels: {en: "Result", ru: "Результат"}
     prefix: R
     folder: docs/results
     stage: idea
@@ -91,6 +125,7 @@ kinds:
         cardinality: many
         required: true
   - name: User story
+    labels: {en: "User story", ru: "Пользовательская история"}
     prefix: US
     folder: docs/stories
     stage: requirements
@@ -104,6 +139,7 @@ kinds:
         cardinality: many
         required: true
   - name: Use case
+    labels: {en: "Use case", ru: "Сценарий использования"}
     prefix: UC
     folder: docs/use-cases
     stage: requirements
@@ -116,6 +152,7 @@ kinds:
         cardinality: many
         required: true
   - name: Product requirement
+    labels: {en: "Product requirement", ru: "Требование к продукту"}
     prefix: FR
     folder: docs/requirements
     stage: requirements
@@ -129,36 +166,43 @@ kinds:
         cardinality: many
         required: true
   - name: Decision
+    labels: {en: "Decision", ru: "Решение"}
     prefix: DEC
     folder: docs/decisions
     stage: design
     hint: "важный выбор и его причина; полная запись находится в репозитории движка"
   - name: Design record
+    labels: {en: "Design record", ru: "Запись проектирования"}
     prefix: DES
     folder: docs/changes
     stage: design
     hint: "проектирование одного изменения: основания, варианты и принятое решение"
   - name: Architecture
+    labels: {en: "Architecture", ru: "Архитектура"}
     prefix: ARC
     folder: docs/system/architecture.md
     stage: design
     hint: "как устроен движок; описание отражает исходный код и его границы"
   - name: Capability
+    labels: {en: "Capability", ru: "Возможность"}
     prefix: CAP
     folder: docs/system/capabilities
     stage: design
     hint: "принятое поведение движка в виде требований и сценариев"
   - name: Change record
+    labels: {en: "Change record", ru: "Запись изменения"}
     prefix: CHG
     folder: docs/changes
     stage: build
     hint: "изменение поведения движка и его критерии приёмки"
   - name: Exploration
+    labels: {en: "Exploration", ru: "Исследование"}
     prefix: EXP
     folder: docs/explorations
     stage: idea
     hint: "вопросы и наблюдения, не создающие обязательств"
   - name: Practice
+    labels: {en: "Practice", ru: "Практика"}
     prefix: PRA
     folder: docs/practices
     stage: operate

@@ -6,6 +6,18 @@
 
 Открытые задачи трекера: https://github.com/shady2k/madarch/issues (идентификаторы `madarch-wsce`, `madarch-lfhu`).
 
+## Current milestone
+
+MIL-005 — standalone: самостоятельный движок и CLI.
+
+## Status
+
+Работа продолжается. В трекере открыты `madarch-wsce` (продуктовая вики) и `madarch-lfhu` (бинарный файл); `madarch-uaq8` (образ Docker) отложен.
+
+## Next step
+
+Завершить открытую работу над продуктовой вики и распространяемым бинарным файлом; Docker-образ остаётся отложенным.
+
 ## Sources
 
 - S-001 L18-18 "Смотрите, глобальная идея у меня такая."
