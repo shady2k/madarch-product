@@ -1,0 +1,582 @@
+# The kinds this product's wiki shows (decision 0029, docs/decisions/0029-knowledge-in-markdown-graph-as-index.md).
+# Each kind names where its entities come from and the template that draws them:
+#   source: markdown  the entity is a Markdown file of this repository (a folder of them, or one file)
+#   source: graph     the entity is a node of the graph the fill builds from the code repositories
+#   source: document  the entity is a section of a Markdown document of this or a code repository that opens with an
+#                     identifier (`identifier: UC` takes UC-1, UC-2 ...) or a bold term of a glossary (`terms: [...]`)
+# A kind with `file:` is one page; the first such kind is the home page.
+# `group` puts the kind in a group of the navigation and the catalogue; `labels` and `description` name and explain
+# the kind in each interface language (en, ru); `origin` says how its entities came to be (agent, person, code, history).
+# `relations` declares an edge between kinds: {attribute|dirname} puts a part of the entity into the other end's key.
+# `documents.exclude` lists Markdown files that are not product documents (the files that steer a coding agent).
+# `roles` says, per role a reader can read as (product, analyst, architect, developer, operations, tester), which blocks of a
+# template stand open on a page and which groups lead the navigation. A block a role does not open stays on the page, collapsed:
+# one page serves every role. A role left out, and the role "everything", open every block in the order above.
+# A glossary is a document named by a kind's `terms`: each list item starts with a bold term, and may list under it
+# "Also called", "In code", "Used in" and "Ambiguous" (decision 0031).
+language: ru
+groups:
+  product: { en: "Product knowledge", ru: "Знания о продукте" }
+  code: { en: "Code", ru: "Код" }
+  contracts: { en: "Contracts", ru: "Контракты" }
+  data: { en: "Data", ru: "Данные" }
+  operations: { en: "Operations", ru: "Эксплуатация" }
+  tests: { en: "Tests", ru: "Тесты" }
+  history: { en: "History", ru: "История" }
+documents:
+  exclude: [AGENTS.md, CLAUDE.md, GEMINI.md, "**/AGENTS.md", "**/CLAUDE.md", "**/GEMINI.md"]
+roles:
+  product: { lead: [product, tests], open: [stated, implementedby, linkedfrom, related, properties] }
+  analyst: { lead: [product, data, contracts], open: [stated, implementedby, linkedfrom, related, properties, er, sequence, children] }
+  architect: { lead: [product, code, contracts, data], open: [graph, related, sequence, er, stated, implementedby, linkedfrom, properties, children] }
+  developer: { lead: [code, contracts, data, tests], open: [source, callers, callees, sequence, graph, related, properties, children, er, stated] }
+  operations: { lead: [operations, data, contracts], open: [properties, related, children, source, er, stated] }
+  tester: { lead: [tests, product], open: [stated, implementedby, linkedfrom, related, properties, callers, children] }
+kinds:
+  product:
+    template: templates/product.md
+    source: markdown
+    group: product
+    file: docs/product.md
+    labels:
+      en: { one: "Product", many: "Products" }
+      ru: { one: "Продукт", many: "Продукты" }
+    description:
+      en: "What the product is, for whom, and its architecture: the home page the agent writes."
+      ru: "Что это за продукт, для кого и как устроен: главная страница, которую пишет агент."
+  domain:
+    template: templates/domain.md
+    source: markdown
+    group: product
+    folder: docs/domains
+    labels:
+      en: { one: "Domain", many: "Domains" }
+      ru: { one: "Домен", many: "Домены" }
+    description:
+      en: "A part of the business the product serves, such as payment or ordering: how it works and what implements it."
+      ru: "Часть бизнеса, которую обслуживает продукт, например оплата или заказы: как она работает и что её реализует."
+  doc.use-case:
+    template: templates/entity-text.md
+    source: document
+    group: product
+    origin: person
+    identifier: UC
+    labels:
+      en: { one: "Use case", many: "Use cases" }
+      ru: { one: "Сценарий", many: "Сценарии" }
+    description:
+      en: "A way a person uses the product (UC-1, UC-2 ...), as the documents state it."
+      ru: "Способ, которым человек пользуется продуктом (UC-1, UC-2 ...), как его описывают документы."
+  doc.rule:
+    template: templates/entity-text.md
+    source: document
+    group: product
+    origin: person
+    identifier: BR
+    labels:
+      en: { one: "Business rule", many: "Business rules" }
+      ru: { one: "Бизнес-правило", many: "Бизнес-правила" }
+    description:
+      en: "A rule the product keeps (BR-1, BR-2 ...), with the code that implements it."
+      ru: "Правило, которое соблюдает продукт (BR-1, BR-2 ...), и код, который его реализует."
+  doc.decision:
+    template: templates/entity-text.md
+    source: document
+    group: product
+    origin: person
+    identifier: ADR
+    labels:
+      en: { one: "Decision", many: "Decisions" }
+      ru: { one: "Решение", many: "Решения" }
+    description:
+      en: "An architecture decision record (ADR-0001 ...): what was decided and why."
+      ru: "Запись об архитектурном решении (ADR-0001 ...): что решили и почему."
+  doc.requirement:
+    template: templates/entity-text.md
+    source: document
+    group: product
+    origin: person
+    identifier: [FR, NFR, REQ, PR, US]
+    labels:
+      en: { one: "Requirement", many: "Requirements" }
+      ru: { one: "Требование", many: "Требования" }
+    description:
+      en: "Another identified item of the documents: a requirement, a story, a feature (FR-1, NFR-2, REQ-3, US-4 ...)."
+      ru: "Другой пронумерованный пункт документов: требование, история, возможность (FR-1, NFR-2, REQ-3, US-4 ...)."
+  doc.term:
+    template: templates/term.md
+    source: document
+    group: product
+    origin: person
+    terms: ["**/glossary*.md"]
+    labels:
+      en: { one: "Glossary term", many: "Glossary terms" }
+      ru: { one: "Термин", many: "Термины" }
+    description:
+      en: "A term of the product's language, defined in a glossary."
+      ru: "Слово из языка продукта с определением из глоссария."
+  code.service:
+    template: templates/service.md
+    source: graph
+    group: code
+    relations:
+      - { type: code.contains, to: "code.package:{span.path|dirname}" }
+    labels:
+      en: { one: "Service", many: "Services" }
+      ru: { one: "Сервис", many: "Сервисы" }
+    description:
+      en: "A deployable part of the system, read from its manifest."
+      ru: "Развёртываемая часть системы, прочитанная из её манифеста."
+  code.package:
+    template: templates/package.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "Package", many: "Packages" }
+      ru: { one: "Пакет", many: "Пакеты" }
+    description:
+      en: "The folder a service's manifest sits in, with its tests and frameworks."
+      ru: "Папка с манифестом сервиса, его тесты и фреймворки."
+  code.module:
+    template: templates/module.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "Module", many: "Modules" }
+      ru: { one: "Модуль", many: "Модули" }
+    description:
+      en: "A folder of code with a purpose of its own, with the modules it depends on."
+      ru: "Папка кода со своим назначением и модули, от которых она зависит."
+  code.file:
+    template: templates/file.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "File", many: "Files" }
+      ru: { one: "Файл", many: "Файлы" }
+    description:
+      en: "A file of a code repository."
+      ru: "Файл репозитория кода."
+  code.symbol:
+    template: templates/symbol.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "Symbol", many: "Symbols" }
+      ru: { one: "Символ", many: "Символы" }
+    description:
+      en: "A function, class or constant, with its callers and callees."
+      ru: "Функция, класс или константа, кто её вызывает и что она вызывает."
+  code.entry-point:
+    template: templates/item-plain.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "Entry point", many: "Entry points" }
+      ru: { one: "Точка входа", many: "Точки входа" }
+    description:
+      en: "Where a process of the system starts running."
+      ru: "Место, где начинает работать процесс системы."
+  code.cycle:
+    template: templates/item-plain.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "Dependency cycle", many: "Dependency cycles" }
+      ru: { one: "Цикл зависимостей", many: "Циклы зависимостей" }
+    description:
+      en: "Files or modules that import one another in a ring."
+      ru: "Файлы или модули, которые импортируют друг друга по кругу."
+  code.facet:
+    template: templates/item-plain.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "File facet", many: "File facets" }
+      ru: { one: "Срез файла", many: "Срезы файлов" }
+    description:
+      en: "What the code reader found out about a file: its role and language."
+      ru: "Что читатель кода выяснил о файле: его роль и язык."
+  code.input:
+    template: templates/item.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "Input", many: "Inputs" }
+      ru: { one: "Входные данные", many: "Входные данные" }
+    description:
+      en: "A value that enters the code from outside, such as a query parameter."
+      ru: "Значение, которое попадает в код снаружи, например параметр запроса."
+  code.sql-build:
+    template: templates/item-plain.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "SQL build", many: "SQL builds" }
+      ru: { one: "Сборка SQL", many: "Сборки SQL" }
+    description:
+      en: "A function that builds SQL text by joining strings."
+      ru: "Функция, которая собирает текст SQL склейкой строк."
+  code.sql-sink:
+    template: templates/item.md
+    source: graph
+    group: code
+    labels:
+      en: { one: "SQL sink", many: "SQL sinks" }
+      ru: { one: "Выполнение SQL", many: "Места выполнения SQL" }
+    description:
+      en: "A call that runs SQL text as it is."
+      ru: "Вызов, который выполняет текст SQL как есть."
+  code.route:
+    template: templates/item.md
+    source: graph
+    group: contracts
+    labels:
+      en: { one: "HTTP route", many: "HTTP routes" }
+      ru: { one: "HTTP-маршрут", many: "HTTP-маршруты" }
+    description:
+      en: "An HTTP route a service serves, read from its code."
+      ru: "HTTP-маршрут, который обслуживает сервис, прочитанный из кода."
+  code.operation:
+    template: templates/item.md
+    source: graph
+    group: contracts
+    labels:
+      en: { one: "API operation", many: "API operations" }
+      ru: { one: "Операция API", many: "Операции API" }
+    description:
+      en: "An operation an OpenAPI or gRPC contract declares."
+      ru: "Операция, которую объявляет контракт OpenAPI или gRPC."
+  code.contract:
+    template: templates/item-plain.md
+    source: graph
+    group: contracts
+    labels:
+      en: { one: "Contract", many: "Contracts" }
+      ru: { one: "Контракт", many: "Контракты" }
+    description:
+      en: "An OpenAPI, gRPC or AsyncAPI file that fixes an interface."
+      ru: "Файл OpenAPI, gRPC или AsyncAPI, который фиксирует интерфейс."
+  code.channel:
+    template: templates/item-plain.md
+    source: graph
+    group: contracts
+    labels:
+      en: { one: "Event channel", many: "Event channels" }
+      ru: { one: "Канал событий", many: "Каналы событий" }
+    description:
+      en: "A topic or queue that services publish to and read from."
+      ru: "Топик или очередь, в которую сервисы пишут и из которой читают."
+  code.message:
+    template: templates/item-plain.md
+    source: graph
+    group: contracts
+    labels:
+      en: { one: "Event", many: "Events" }
+      ru: { one: "Событие", many: "События" }
+    description:
+      en: "A kind of message sent over a channel."
+      ru: "Вид сообщения, которое передают по каналу."
+  code.database:
+    template: templates/database.md
+    source: graph
+    group: data
+    labels:
+      en: { one: "Database", many: "Databases" }
+      ru: { one: "База данных", many: "Базы данных" }
+    description:
+      en: "A database a service owns, with its tables and migrations."
+      ru: "База данных сервиса, её таблицы и миграции."
+  code.table:
+    template: templates/table.md
+    source: graph
+    group: data
+    labels:
+      en: { one: "Table", many: "Tables" }
+      ru: { one: "Таблица", many: "Таблицы" }
+    description:
+      en: "A table, its columns and indexes, and the code that reads and writes it."
+      ru: "Таблица, её столбцы и индексы, и код, который её читает и пишет."
+  code.column:
+    template: templates/item-plain.md
+    source: graph
+    group: data
+    labels:
+      en: { one: "Column", many: "Columns" }
+      ru: { one: "Столбец", many: "Столбцы" }
+    description:
+      en: "A column of a table with its type."
+      ru: "Столбец таблицы с его типом."
+  code.index:
+    template: templates/item.md
+    source: graph
+    group: data
+    labels:
+      en: { one: "Index", many: "Indexes" }
+      ru: { one: "Индекс", many: "Индексы" }
+    description:
+      en: "A database index."
+      ru: "Индекс базы данных."
+  code.migration:
+    template: templates/item.md
+    source: graph
+    group: data
+    labels:
+      en: { one: "Migration", many: "Migrations" }
+      ru: { one: "Миграция", many: "Миграции" }
+    description:
+      en: "A step that changes a database's schema, in the order they run."
+      ru: "Шаг, который меняет схему базы данных, в порядке выполнения."
+  code.env-var:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Environment variable", many: "Environment variables" }
+      ru: { one: "Переменная окружения", many: "Переменные окружения" }
+    description:
+      en: "A setting the code reads from its environment, with where it is defined."
+      ru: "Настройка, которую код читает из окружения, и где она задана."
+  code.env-definition:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Variable definition", many: "Variable definitions" }
+      ru: { one: "Определение переменной", many: "Определения переменных" }
+    description:
+      en: "A place that gives an environment variable a value."
+      ru: "Место, где переменной окружения задано значение."
+  code.dependency:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Dependency", many: "Dependencies" }
+      ru: { one: "Зависимость", many: "Зависимости" }
+    description:
+      en: "A library a service declares, with its version and where it is used."
+      ru: "Библиотека, которую объявляет сервис, её версия и где она используется."
+  code.manifest:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Manifest", many: "Manifests" }
+      ru: { one: "Манифест", many: "Манифесты" }
+    description:
+      en: "A package.json or go.mod file that declares dependencies."
+      ru: "Файл package.json или go.mod, который объявляет зависимости."
+  code.lockfile:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Lock file", many: "Lock files" }
+      ru: { one: "Файл блокировки", many: "Файлы блокировки" }
+    description:
+      en: "A file that pins the exact versions of the dependencies."
+      ru: "Файл, который закрепляет точные версии зависимостей."
+  code.dockerfile:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Dockerfile", many: "Dockerfiles" }
+      ru: { one: "Dockerfile", many: "Dockerfile" }
+    description:
+      en: "A recipe that builds a container image."
+      ru: "Рецепт сборки образа контейнера."
+  code.image:
+    template: templates/item-plain.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Image", many: "Images" }
+      ru: { one: "Образ", many: "Образы" }
+    description:
+      en: "A container image a deployment runs."
+      ru: "Образ контейнера, который запускает развёртывание."
+  code.compose-service:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Compose service", many: "Compose services" }
+      ru: { one: "Сервис compose", many: "Сервисы compose" }
+    description:
+      en: "A service of a docker-compose file, with its ports and dependencies."
+      ru: "Сервис файла docker-compose, его порты и зависимости."
+  code.k8s-deployment:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Kubernetes deployment", many: "Kubernetes deployments" }
+      ru: { one: "Развёртывание Kubernetes", many: "Развёртывания Kubernetes" }
+    description:
+      en: "A Kubernetes Deployment: image, replicas and probes."
+      ru: "Развёртывание Kubernetes: образ, число реплик и проверки."
+  code.k8s-service:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Kubernetes service", many: "Kubernetes services" }
+      ru: { one: "Сервис Kubernetes", many: "Сервисы Kubernetes" }
+    description:
+      en: "A Kubernetes Service that routes traffic to pods."
+      ru: "Сервис Kubernetes, который направляет трафик на поды."
+  code.ci-workflow:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "CI workflow", many: "CI workflows" }
+      ru: { one: "Процесс CI", many: "Процессы CI" }
+    description:
+      en: "A continuous-integration workflow file."
+      ru: "Файл процесса непрерывной интеграции."
+  code.ci-job:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "CI job", many: "CI jobs" }
+      ru: { one: "Задача CI", many: "Задачи CI" }
+    description:
+      en: "A job of a CI workflow and the steps it runs."
+      ru: "Задача процесса CI и шаги, которые она выполняет."
+  code.make-target:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Make target", many: "Make targets" }
+      ru: { one: "Цель make", many: "Цели make" }
+    description:
+      en: "A target of a Makefile and the commands it runs."
+      ru: "Цель Makefile и команды, которые она выполняет."
+  code.process:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Process", many: "Processes" }
+      ru: { one: "Процесс", many: "Процессы" }
+    description:
+      en: "A program the system starts, and the port it listens on."
+      ru: "Программа, которую запускает система, и порт, который она слушает."
+  code.port:
+    template: templates/item-plain.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Port", many: "Ports" }
+      ru: { one: "Порт", many: "Порты" }
+    description:
+      en: "A network port a service listens on or publishes."
+      ru: "Сетевой порт, который сервис слушает или публикует."
+  code.health-endpoint:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Health endpoint", many: "Health endpoints" }
+      ru: { one: "Проверка здоровья", many: "Проверки здоровья" }
+    description:
+      en: "The route that tells whether a service is alive."
+      ru: "Маршрут, по которому видно, жив ли сервис."
+  code.metrics-endpoint:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Metrics endpoint", many: "Metrics endpoints" }
+      ru: { one: "Выдача метрик", many: "Выдачи метрик" }
+    description:
+      en: "The route that serves a service's metrics."
+      ru: "Маршрут, по которому сервис отдаёт метрики."
+  code.logger:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Logger", many: "Loggers" }
+      ru: { one: "Логгер", many: "Логгеры" }
+    description:
+      en: "Where a service sets up its logging."
+      ru: "Место, где сервис настраивает журнал."
+  code.newcomer-command:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Setup command", many: "Setup commands" }
+      ru: { one: "Команда запуска", many: "Команды запуска" }
+    description:
+      en: "A command the README tells a newcomer to run."
+      ru: "Команда, которую README велит выполнить новичку."
+  code.newcomer-prerequisites:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Prerequisites", many: "Prerequisites" }
+      ru: { one: "Что нужно установить", many: "Что нужно установить" }
+    description:
+      en: "The tools the README says a newcomer needs."
+      ru: "Инструменты, которые по README нужны новичку."
+  code.newcomer-failure:
+    template: templates/item.md
+    source: graph
+    group: operations
+    labels:
+      en: { one: "Known failure", many: "Known failures" }
+      ru: { one: "Известная ошибка", many: "Известные ошибки" }
+    description:
+      en: "A failure the README names, with its fix."
+      ru: "Ошибка, которую называет README, и как её исправить."
+  code.test-case:
+    template: templates/item.md
+    source: graph
+    group: tests
+    labels:
+      en: { one: "Test case", many: "Test cases" }
+      ru: { one: "Тест", many: "Тесты" }
+    description:
+      en: "A test, and the code it exercises."
+      ru: "Тест и код, который он проверяет."
+  code.commit:
+    template: templates/item-plain.md
+    source: graph
+    group: history
+    origin: history
+    labels:
+      en: { one: "Commit", many: "Commits" }
+      ru: { one: "Коммит", many: "Коммиты" }
+    description:
+      en: "A change in the repository's history, with its author and the files it touched."
+      ru: "Изменение в истории репозитория, его автор и затронутые файлы."
+  code.author:
+    template: templates/item-plain.md
+    source: graph
+    group: history
+    origin: history
+    labels:
+      en: { one: "Author", many: "Authors" }
+      ru: { one: "Автор", many: "Авторы" }
+    description:
+      en: "A person who made commits."
+      ru: "Человек, который делал коммиты."
+  code.task:
+    template: templates/item-plain.md
+    source: graph
+    group: history
+    origin: history
+    labels:
+      en: { one: "Task", many: "Tasks" }
+      ru: { one: "Задача", many: "Задачи" }
+    description:
+      en: "A tracker task that commit messages name."
+      ru: "Задача трекера, которую называют сообщения коммитов."
