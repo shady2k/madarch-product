@@ -1,0 +1,8 @@
+{% layout "./entity.liquid" %}
+{% block details %}{% repository title="Repository" title-ru="Репозиторий" %}{% endblock %}
+{% block lead %}{% folder title="Root" title-ru="Корень" %}{% endblock %}
+{% block parts %}{% history title="History" title-ru="История" %}
+{% treemap title="Files by size and change" title-ru="Файлы по размеру и изменчивости" %}
+{% related title="Files" title-ru="Файлы" relation="code.contains" depth=3 kind="code.file" limit=80 %}{% endblock %}
+{% block around %}{% render "./partials/around.liquid", title="Around this repository", title_ru="Вокруг этого репозитория" %}{% endblock %}
+{% block describedby %}{% render "./partials/pages-about.liquid", title="Pages about this repository", title_ru="Страницы об этом репозитории" %}{% endblock %}

@@ -1,0 +1,30 @@
+{% comment %}
+The base page of every kind (decision 0032 section 8). A kind template extends it
+with the layout tag and fills the sections it has, in this order:
+
+  lead         what the page says first: its Markdown body, or the line that places it, and, where a kind opens with a
+               picture, that picture
+  details      the properties the entity holds
+  around       where it stands in the graph
+  source       the code it stands on
+  calls        what it calls, and what calls it
+  chain        the chain a reader follows from it to the tables and the topics
+  parts        what it holds: history, views, modules, files, symbols, columns, tables, commits
+  relations    the edges its kind declares
+  describedby  the pages of this product that are about it
+  mentionedon  the pages that link to it or ground a statement in it
+
+A section a kind does not fill writes nothing. A block's title is given in both
+interface languages (title and title-ru), and the wiki folds the reader's own into
+title. A page's values are read as page.label, or, as the templates of 0029 wrote
+them, as label.
+{% endcomment %}{% block lead %}{% endblock %}
+{% block details %}{% endblock %}
+{% block around %}{% endblock %}
+{% block source %}{% endblock %}
+{% block calls %}{% endblock %}
+{% block chain %}{% endblock %}
+{% block parts %}{% endblock %}
+{% block relations %}{% endblock %}
+{% block describedby %}{% endblock %}
+{% block mentionedon %}{% linkedfrom title="Mentioned on" title-ru="Упоминается на" hide-empty="true" %}{% endblock %}

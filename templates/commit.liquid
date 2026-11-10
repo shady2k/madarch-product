@@ -1,0 +1,6 @@
+{% layout "./entity.liquid" %}
+{% block details %}{% properties title="Details" title-ru="Сведения" %}{% endblock %}
+{% block parts %}{% render "./partials/history.liquid", title="Files changed", title_ru="Изменённые файлы" %}{% endblock %}
+{% block around %}{% render "./partials/around.liquid", title="Around this commit", title_ru="Вокруг этого коммита" %}{% endblock %}
+{% block relations %}{% render "./partials/relations.liquid", title="Relations", title_ru="Связи" %}{% endblock %}
+{% block describedby %}{% render "./partials/pages-about.liquid", title="Pages about this commit", title_ru="Страницы об этом коммите" %}{% endblock %}
