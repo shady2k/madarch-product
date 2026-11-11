@@ -830,6 +830,22 @@ kinds:
     description:
       en: A folder of a code repository, which holds files and further folders.
       ru: Папка репозитория кода, которая содержит файлы и другие папки.
+  consistency.finding:
+    template: templates/consistency-finding.liquid
+    source: graph
+    findings: true
+    depends-on: [code.file]
+    labels:
+      en: { one: Consistency finding, many: Consistency findings }
+      ru: { one: Нарушение согласованности, many: Нарушения согласованности }
+    fields:
+      - { name: id, type: text, binding: "consistency@1.id" }
+      - { name: rule, type: text, binding: "consistency@1.rule" }
+      - { name: subject, type: text, binding: "consistency@1.subject" }
+      - { name: target, type: text, nullable: true, binding: "consistency@1.target" }
+      - { name: cause, type: text, binding: "consistency@1.cause" }
+      - { name: severity, type: text, nullable: true, binding: "consistency@1.severity" }
+    key: [id]
 properties:
     language:
       en: Language
@@ -1580,3 +1596,13 @@ edges:
     repeats: true
     discriminator: commit
     capability: git
+
+plugins:
+  - { id: consistency, version: 1, path: plugins/consistency, inputs: [code.file], outputs: [consistency.finding], closure: [plugins/consistency/contract.json, plugins/consistency/main.ts, plugins/consistency/plugin.json] }
+
+problems:
+  rules:
+    missing-reference: { predicate: findings, kind: missing-reference, sonar: bug, severity: major, section: code, action: task, enabled: true, label: { en: "Reference to a missing key", ru: "Ссылка на отсутствующий ключ" } }
+    dangling-reference: { predicate: findings, kind: dangling-reference, sonar: bug, severity: major, section: code, action: task, enabled: true, label: { en: "Edge end names a missing key", ru: "Конец ребра ссылается на отсутствующий ключ" } }
+    removed-end: { predicate: findings, kind: removed-end, sonar: bug, severity: major, section: code, action: task, enabled: true, label: { en: "Edge ends at a removed vertex", ru: "Ребро ведёт к удалённой вершине" } }
+    unevidenced-opinion: { predicate: findings, kind: unevidenced-opinion, sonar: bug, severity: minor, section: code, action: task, enabled: true, label: { en: "Opinion without evidence", ru: "Утверждение без основания" } }
