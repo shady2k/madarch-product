@@ -4,5 +4,5 @@
 :::callers{title="Callers" title-ru="Кто вызывает"}
 :::callees{title="Calls" title-ru="Что вызывает"}
 :::sequence{depth=2 title="Call sequence" title-ru="Последовательность вызовов"}
-:::related{title="Tests and types" title-ru="Тесты и типы" relation="code.tests,code.implements,code.inherits"}
+:::relations{title="Relations" title-ru="Связи"}
 :::related{title="Pages about this function" title-ru="Страницы о этой функции" relation="relates"}

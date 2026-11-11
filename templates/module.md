@@ -1,4 +1,5 @@
 :::properties{title="Details" title-ru="Сведения"}
+:::relations{title="Relations" title-ru="Связи"}
 :::related{title="Files" title-ru="Файлы" relation="code.contains" depth=2 kind="code.file" limit=80}
 :::related{title="Symbols" title-ru="Символы" relation="code.contains" depth=3 kind="code.symbol" limit=60}
 :::related{title="Depends on" title-ru="Зависит от" relation="code.depends-on" direction="out"}

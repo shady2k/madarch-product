@@ -1,0 +1,69 @@
+{
+  "id": "consistency",
+  "version": "1.0.0",
+  "reads": "whole-graph",
+  "outputs": {
+    "vertices": [
+      {
+        "kind": "consistency.finding",
+        "key": [
+          "id"
+        ],
+        "fields": [
+          {
+            "name": "id",
+            "type": "text",
+            "meaning": "The finding's stable identity: its rule and every value that tells it apart.",
+            "example": "removed-end|contains|src|a.ts|to",
+            "required": true
+          },
+          {
+            "name": "rule",
+            "type": "text",
+            "meaning": "The rule that found it: dangling-reference, missing-reference, removed-end or unevidenced-opinion.",
+            "example": "removed-end",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "text",
+            "meaning": "The entity the finding is about, as a person reads it.",
+            "example": "code.contains src → src/a.ts",
+            "required": true
+          },
+          {
+            "name": "target",
+            "type": "text",
+            "meaning": "What the finding names beside its subject: the missing key, the removed end or the producer.",
+            "example": "src/a.ts",
+            "required": false
+          },
+          {
+            "name": "cause",
+            "type": "text",
+            "meaning": "Why the finding stands, in plain words.",
+            "example": "the to end of code.contains is removed",
+            "required": true
+          },
+          {
+            "name": "severity",
+            "type": "text",
+            "meaning": "How serious the finding is: blocker, critical, major, minor or info.",
+            "example": "major",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "edges": []
+  },
+  "rights": {
+    "network": "none",
+    "graph": true,
+    "graphReads": [
+      "unresolved",
+      "removedEnds",
+      "unevidenced"
+    ]
+  }
+}

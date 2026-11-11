@@ -1,0 +1,10 @@
+{
+  "name": "consistency",
+  "version": "1.0.0",
+  "entry": "main.ts",
+  "runtime": {
+    "name": "bun",
+    "version": "1.4.2"
+  },
+  "description": "The consistency plugin: after every other turn it reads the writer's records and answers one finding per unresolved reference, removed edge end or unevidenced opinion (decision 0035, item 32; madarch-stm0.7.1)."
+}

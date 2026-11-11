@@ -148,15 +148,63 @@ kinds:
       en: "A folder of code with a purpose of its own, with the modules it depends on."
       ru: "Папка кода со своим назначением и модули, от которых она зависит."
   code.file:
-    template: templates/file.md
+    template: templates/file.liquid
     source: graph
-    group: code
+    capability: git
+    fields:
+      - name: repository_node
+        type: bigint
+        producers:
+          - git
+        reference: code.repository
+      - name: path_id
+        type: bigint
+        producers:
+          - git
+      - name: mode
+        type: text
+        nullable: true
+        producers:
+          - git
+      - name: blob_id
+        type: bigint
+        nullable: true
+        producers:
+          - git
+      - name: content
+        type: text
+        nullable: true
+        producers:
+          - git
+    key:
+      - repository_node
+      - path_id
+    depends-on:
+      - code.repository
+      - code.directory
+    history: path
+    views:
+      - state
+    details:
+      - mode
+      - blob
+      - bytes
+      - lines
+      - form
+      - language
+      - candidates
+      - commitCount
+      - authors
     labels:
-      en: { one: "File", many: "Files" }
-      ru: { one: "Файл", many: "Файлы" }
+      en:
+        one: File
+        many: Files
+      ru:
+        one: Файл
+        many: Файлы
     description:
-      en: "A file of a code repository."
-      ru: "Файл репозитория кода."
+      en: A file of a code repository.
+      ru: Файл репозитория кода.
   code.symbol:
     template: templates/symbol.md
     source: graph
@@ -548,27 +596,98 @@ kinds:
       en: "A test, and the code it exercises."
       ru: "Тест и код, который он проверяет."
   code.commit:
-    template: templates/item-plain.md
+    template: templates/commit.liquid
     source: graph
-    group: history
+    capability: git
+    fields:
+      - name: hash
+        type: text
+        producers:
+          - git
+      - name: algorithm
+        type: text
+        producers:
+          - git
+      - name: subject
+        type: text
+        nullable: true
+        producers:
+          - git
+      - name: author_date
+        type: timestamp
+        nullable: true
+        producers:
+          - git
+      - name: author_offset_min
+        type: integer
+        nullable: true
+        producers:
+          - git
+      - name: commit_date
+        type: timestamp
+        nullable: true
+        producers:
+          - git
+      - name: commit_offset_min
+        type: integer
+        nullable: true
+        producers:
+          - git
+    key:
+      - hash
+    depends-on:
+      - code.repository
     origin: history
+    history: commit
+    details:
+      - author
+      - authorEmail
+      - subject
+      - authoredAt
+      - committedAt
+      - merge
+      - mergedBranch
     labels:
-      en: { one: "Commit", many: "Commits" }
-      ru: { one: "Коммит", many: "Коммиты" }
+      en:
+        one: Commit
+        many: Commits
+      ru:
+        one: Коммит
+        many: Коммиты
     description:
-      en: "A change in the repository's history, with its author and the files it touched."
-      ru: "Изменение в истории репозитория, его автор и затронутые файлы."
+      en: A change in the repository's history, with its author and the files it
+        touched.
+      ru: Изменение в истории репозитория, его автор и затронутые файлы.
   code.author:
-    template: templates/item-plain.md
+    template: templates/author.liquid
     source: graph
-    group: history
+    capability: git
+    fields:
+      - name: name
+        type: text
+        producers:
+          - git
+      - name: email
+        type: text
+        producers:
+          - git
+    key:
+      - name
+      - email
+    depends-on:
+      - code.commit
     origin: history
+    history: author
     labels:
-      en: { one: "Author", many: "Authors" }
-      ru: { one: "Автор", many: "Авторы" }
+      en:
+        one: Author
+        many: Authors
+      ru:
+        one: Автор
+        many: Авторы
     description:
-      en: "A person who made commits."
-      ru: "Человек, который делал коммиты."
+      en: A person who made commits.
+      ru: Человек, который делал коммиты.
   code.task:
     template: templates/item-plain.md
     source: graph
@@ -580,3 +699,910 @@ kinds:
     description:
       en: "A tracker task that commit messages name."
       ru: "Задача трекера, которую называют сообщения коммитов."
+  question:
+    template: templates/question.liquid
+    source: markdown
+    origin: agent
+    folder: docs/questions
+    nav: loop
+    labels:
+      en:
+        one: Question
+        many: Questions
+      ru:
+        one: Вопрос
+        many: Вопросы
+    description:
+      en: Something the agent could not settle from the code and the documents; a
+        person answers it.
+      ru: То, что агент не смог решить по коду и документам; отвечает человек.
+  correction:
+    template: templates/correction.liquid
+    source: markdown
+    origin: person
+    folder: docs/corrections
+    nav: loop
+    labels:
+      en:
+        one: Correction
+        many: Corrections
+      ru:
+        one: Поправка
+        many: Поправки
+    description:
+      en: A person's note that a statement is wrong, and why; the agent takes it into
+        account at the next refresh.
+      ru: Заметка человека о том, что утверждение неверно, и почему; агент учтёт её
+        при следующем обновлении.
+  administrator-guide:
+    template: templates/guide.liquid
+    source: markdown
+    origin: agent
+    file: docs/guides/administrator.md
+    labels:
+      en:
+        one: Administrator guide
+        many: Administrator guide
+      ru:
+        one: Руководство администратора
+        many: Руководство администратора
+    description:
+      en: Grounded setup and operations, with independent walkthrough status.
+      ru: Запуск и эксплуатация с основаниями в исходниках и независимым статусом
+        прохождения.
+  user-guide:
+    template: templates/guide.liquid
+    source: markdown
+    origin: agent
+    file: docs/guides/user.md
+    labels:
+      en:
+        one: User guide
+        many: User guide
+      ru:
+        one: Руководство пользователя
+        many: Руководство пользователя
+    description:
+      en: Supported tasks and API procedures, with known gaps.
+      ru: Поддерживаемые задачи и API-процедуры с известными пробелами.
+  code.repository:
+    template: templates/repository.liquid
+    source: graph
+    capability: git
+    fields:
+      - name: name
+        type: text
+        producers:
+          - git
+      - name: url
+        type: text
+        producers:
+          - git
+      - name: default_branch
+        type: text
+        nullable: true
+        producers:
+          - git
+    key:
+      - name
+    depends-on: []
+    history: repositories
+    labels:
+      en:
+        one: Repository
+        many: Repositories
+      ru:
+        one: Репозиторий
+        many: Репозитории
+    description:
+      en: "A version control repository: the history and the tree the extractors read;
+        it is not a domain repository."
+      ru: "Репозиторий системы контроля версий: история и дерево, которые читают
+        извлекатели; это не репозиторий предметной области."
+  code.directory:
+    template: templates/directory.liquid
+    source: graph
+    capability: git
+    fields:
+      - name: repository_node
+        type: bigint
+        producers:
+          - git
+        reference: code.repository
+      - name: path_id
+        type: bigint
+        producers:
+          - git
+    key:
+      - repository_node
+      - path_id
+    depends-on:
+      - code.repository
+    details:
+      - path
+    labels:
+      en:
+        one: Directory
+        many: Directories
+      ru:
+        one: Папка
+        many: Папки
+    description:
+      en: A folder of a code repository, which holds files and further folders.
+      ru: Папка репозитория кода, которая содержит файлы и другие папки.
+  consistency.finding:
+    template: templates/consistency-finding.liquid
+    source: graph
+    findings: true
+    depends-on: [code.file]
+    labels:
+      en: { one: Consistency finding, many: Consistency findings }
+      ru: { one: Нарушение согласованности, many: Нарушения согласованности }
+    fields:
+      - { name: id, type: text, binding: "consistency@1.id" }
+      - { name: rule, type: text, binding: "consistency@1.rule" }
+      - { name: subject, type: text, binding: "consistency@1.subject" }
+      - { name: target, type: text, nullable: true, binding: "consistency@1.target" }
+      - { name: cause, type: text, binding: "consistency@1.cause" }
+      - { name: severity, type: text, nullable: true, binding: "consistency@1.severity" }
+    key: [id]
+properties:
+    language:
+      en: Language
+      ru: Язык
+      format: text
+    frameworks:
+      en: Frameworks
+      ru: Фреймворки
+      format: list
+    infrastructure:
+      en: Infrastructure
+      ru: Инфраструктура
+      format: list
+    testFramework:
+      en: Test framework
+      ru: Тестовый фреймворк
+      format: text
+    ecosystem:
+      en: Ecosystem
+      ru: Экосистема
+      format: text
+    name:
+      en: Name
+      ru: Имя
+      format: text
+    version:
+      en: Version
+      ru: Версия
+      format: text
+    external:
+      en: External
+      ru: Внешняя
+      format: boolean
+    hasTests:
+      en: Has tests
+      ru: Есть тесты
+      format: boolean
+    sourceFiles:
+      en: Source files
+      ru: Исходные файлы
+      format: number
+    testFiles:
+      en: Test files
+      ru: Тестовые файлы
+      format: number
+    tests:
+      en: Tests
+      ru: Тесты
+      format: list
+    versionStatus:
+      en: Version status
+      ru: Состояние версии
+      format: text
+    standardLibrary:
+      en: Standard library
+      ru: Стандартная библиотека
+      format: boolean
+    role:
+      en: Role
+      ru: Роль
+      format: text
+    kind:
+      en: Kind
+      ru: Вид
+      format: text
+    files:
+      en: Files
+      ru: Файлы
+      format: number
+    parsedFiles:
+      en: Parsed files
+      ru: Разобранные файлы
+      format: number
+    packageName:
+      en: Package name
+      ru: Имя пакета
+      format: text
+    symbolKind:
+      en: Symbol kind
+      ru: Вид символа
+      format: text
+    qualifiedName:
+      en: Qualified name
+      ru: Полное имя
+      format: text
+    typeText:
+      en: Type
+      ru: Тип
+      format: text
+    value:
+      en: Value
+      ru: Значение
+      format: code
+    exported:
+      en: Exported
+      ru: Экспортируется
+      format: boolean
+    abstract:
+      en: Abstract
+      ru: Абстрактный
+      format: boolean
+    inline:
+      en: Inline
+      ru: Встроенный
+      format: boolean
+    test:
+      en: Test
+      ru: Тест
+      format: commands
+    deadExport:
+      en: Unused export
+      ru: Неиспользуемый экспорт
+      format: boolean
+    entryPoint:
+      en: Entry point
+      ru: Точка входа
+      format: text
+    entryPoints:
+      en: Entry points
+      ru: Точки входа
+      format: list
+    file:
+      en: File
+      ru: Файл
+      format: path
+    service:
+      en: Service
+      ru: Сервис
+      format: text
+    symbol:
+      en: Symbol
+      ru: Символ
+      format: text
+    starts:
+      en: Starts
+      ru: Запускает
+      format: list
+    level:
+      en: Level
+      ru: Уровень
+      format: text
+    size:
+      en: Size
+      ru: Размер
+      format: number
+    marker:
+      en: Marker
+      ru: Маркер
+      format: text
+    text:
+      en: Text
+      ru: Текст
+      format: text
+    path:
+      en: Path
+      ru: Путь
+      format: path
+    line:
+      en: Line
+      ru: Строка
+      format: number
+    lines:
+      en: Lines
+      ru: Строк
+      format: number
+    mode:
+      en: Mode
+      ru: Режим
+      format: text
+    blob:
+      en: Blob
+      ru: Blob
+      format: code
+    bytes:
+      en: Bytes
+      ru: Байт
+      format: number
+    form:
+      en: Form
+      ru: Форма
+      format: text
+    candidates:
+      en: Languages
+      ru: Языки
+      format: list
+    author:
+      en: Author
+      ru: Автор
+      format: text
+    authorEmail:
+      en: Author email
+      ru: Почта автора
+      format: text
+    source:
+      en: Source
+      ru: Источник
+      format: text
+    readBy:
+      en: Read by
+      ru: Читает
+      format: text
+    function:
+      en: Function
+      ru: Функция
+      format: text
+    callee:
+      en: Callee
+      ru: Вызываемый
+      format: text
+    method:
+      en: Method
+      ru: Метод
+      format: text
+    authGroup:
+      en: Authentication group
+      ru: Группа авторизации
+      format: boolean
+    authAlgorithm:
+      en: Authentication algorithm
+      ru: Алгоритм авторизации
+      format: text
+    handler:
+      en: Handler
+      ru: Обработчик
+      format: text
+    handlerPath:
+      en: Handler file
+      ru: Файл обработчика
+      format: path
+    operationId:
+      en: Operation id
+      ru: Идентификатор операции
+      format: text
+    public:
+      en: Public
+      ru: Публичная
+      format: boolean
+    package:
+      en: Package
+      ru: Пакет
+      format: text
+    input:
+      en: Input
+      ru: Входные данные
+      format: text
+    output:
+      en: Output
+      ru: Результат
+      format: text
+    rpc:
+      en: RPC
+      ru: RPC
+      format: text
+    servers:
+      en: Servers
+      ru: Серверы
+      format: list
+    summary:
+      en: Summary
+      ru: Кратко
+      format: text
+    format:
+      en: Format
+      ru: Формат
+      format: text
+    specVersion:
+      en: Specification version
+      ru: Версия спецификации
+      format: text
+    protocol:
+      en: Protocol
+      ru: Протокол
+      format: text
+    contract:
+      en: Contract
+      ru: Контракт
+      format: text
+    description:
+      en: Description
+      ru: Описание
+      format: text
+    consumerStatus:
+      en: Consumer status
+      ru: Состояние потребителя
+      format: text
+    consumerFound:
+      en: Consumer found
+      ru: Потребитель найден
+      format: boolean
+    channel:
+      en: Channel
+      ru: Канал
+      format: text
+    eventTypes:
+      en: Event types
+      ru: Типы событий
+      format: list
+    database:
+      en: Database
+      ru: База данных
+      format: text
+    schema:
+      en: Schema
+      ru: Схема
+      format: text
+    evidenceKind:
+      en: Evidence
+      ru: Основание
+      format: text
+    type:
+      en: Type
+      ru: Тип
+      format: text
+    nullable:
+      en: Nullable
+      ru: Допускает NULL
+      format: boolean
+    default:
+      en: Default
+      ru: Значение по умолчанию
+      format: code
+    primaryKey:
+      en: Primary key
+      ru: Первичный ключ
+      format: boolean
+    unique:
+      en: Unique
+      ru: Уникальный
+      format: boolean
+    check:
+      en: Check
+      ru: Проверка
+      format: code
+    columns:
+      en: Columns
+      ru: Столбцы
+      format: list
+    where:
+      en: Condition
+      ru: Условие
+      format: code
+    ordinal:
+      en: Order
+      ru: Порядок
+      format: number
+    required:
+      en: Required
+      ru: Обязательна
+      format: boolean
+    scope:
+      en: Scope
+      ru: Область
+      format: text
+    exact:
+      en: Exact version
+      ru: Точная версия
+      format: boolean
+    module:
+      en: Module
+      ru: Модуль
+      format: text
+    goVersion:
+      en: Go version
+      ru: Версия Go
+      format: text
+    private:
+      en: Private
+      ru: Приватный
+      format: boolean
+    scripts:
+      en: Scripts
+      ru: Сценарии
+      format: scripts
+    lockfileVersion:
+      en: Lock file version
+      ru: Версия файла блокировки
+      format: number
+    modules:
+      en: Modules
+      ru: Модули
+      format: number
+    packages:
+      en: Packages
+      ru: Пакеты
+      format: number
+    devOnlyPackages:
+      en: Development packages
+      ru: Пакеты для разработки
+      format: number
+    baseImages:
+      en: Base images
+      ru: Базовые образы
+      format: list
+    exposes:
+      en: Exposes
+      ru: Открывает порты
+      format: list
+    command:
+      en: Command
+      ru: Команда
+      format: commands
+    repository:
+      en: Repository
+      ru: Репозиторий
+      format: text
+    tag:
+      en: Tag
+      ru: Тег
+      format: text
+    image:
+      en: Image
+      ru: Образ
+      format: text
+    build:
+      en: Build
+      ru: Сборка
+      format: build
+      fields:
+        context:
+          en: Build context
+          ru: Контекст сборки
+          format: path
+        dockerfile:
+          en: Dockerfile
+          ru: Dockerfile
+          format: path
+    ports:
+      en: Ports
+      ru: Порты
+      format: ports
+    dependsOn:
+      en: Depends on
+      ru: Зависит от
+      format: list
+    environment:
+      en: Environment
+      ru: Окружение
+      format: list
+    containerPorts:
+      en: Container ports
+      ru: Порты контейнера
+      format: list
+    envFrom:
+      en: Environment from
+      ru: Окружение из
+      format: list
+    replicas:
+      en: Replicas
+      ru: Реплики
+      format: number
+    probePath:
+      en: Probe path
+      ru: Путь проверки
+      format: text
+    probePaths:
+      en: Probe paths
+      ru: Пути проверки
+      format: list
+    on:
+      en: On
+      ru: События
+      format: list
+    workingDirectory:
+      en: Working directory
+      ru: Рабочая папка
+      format: path
+    steps:
+      en: Steps
+      ru: Шаги
+      format: commands
+    uses:
+      en: Uses
+      ru: Использует
+      format: list
+    phony:
+      en: Phony
+      ru: Фиктивная цель
+      format: boolean
+    recipe:
+      en: Recipe
+      ru: Рецепт
+      format: commands
+    binary:
+      en: Binary
+      ru: Программа
+      format: text
+    port:
+      en: Port
+      ru: Порт
+      format: number
+    statusOk:
+      en: Healthy on success
+      ru: Успех означает здоровье
+      format: boolean
+    metricType:
+      en: Metric type
+      ru: Тип метрики
+      format: text
+    help:
+      en: Help
+      ru: Описание
+      format: text
+    labels:
+      en: Labels
+      ru: Метки
+      format: list
+    library:
+      en: Library
+      ru: Библиотека
+      format: text
+    definitionFormat:
+      en: Definition format
+      ru: Формат описания
+      format: text
+    technology:
+      en: Technology
+      ru: Технология
+      format: text
+    addresses:
+      en: Addresses
+      ru: Адреса
+      format: list
+    probeType:
+      en: Probe type
+      ru: Тип пробы
+      format: text
+    container:
+      en: Container
+      ru: Контейнер
+      format: text
+    resolvedPort:
+      en: Resolved port
+      ru: Найденный порт
+      format: number
+    scheme:
+      en: Scheme
+      ru: Схема
+      format: text
+    host:
+      en: Host
+      ru: Хост
+      format: text
+    initialDelaySeconds:
+      en: Initial delay
+      ru: Начальная задержка
+      format: text
+    periodSeconds:
+      en: Period
+      ru: Период
+      format: text
+    timeoutSeconds:
+      en: Timeout
+      ru: Таймаут
+      format: text
+    successThreshold:
+      en: Success threshold
+      ru: Порог успеха
+      format: number
+    failureThreshold:
+      en: Failure threshold
+      ru: Порог отказа
+      format: number
+    terminationGracePeriodSeconds:
+      en: Termination grace
+      ru: Время на остановку
+      format: text
+    transport:
+      en: Transport
+      ru: Транспорт
+      format: text
+    interval:
+      en: Interval
+      ru: Интервал
+      format: text
+    retries:
+      en: Retries
+      ru: Повторы
+      format: number
+    disable:
+      en: Disabled
+      ru: Отключена
+      format: boolean
+    startPeriod:
+      en: Start period
+      ru: Период запуска
+      format: text
+    startInterval:
+      en: Start interval
+      ru: Интервал запуска
+      format: text
+    heading:
+      en: Heading
+      ru: Заголовок
+      format: text
+    folder:
+      en: Folder
+      ru: Папка
+      format: path
+    purpose:
+      en: Purpose
+      ru: Назначение
+      format: text
+    order:
+      en: Order
+      ru: Порядок
+      format: number
+    tools:
+      en: Tools
+      ru: Инструменты
+      format: list
+    symptom:
+      en: Symptom
+      ru: Симптом
+      format: text
+    fix:
+      en: Fix
+      ru: Исправление
+      format: text
+    testKind:
+      en: Test kind
+      ru: Вид теста
+      format: text
+    skipped:
+      en: Skipped
+      ru: Пропущен
+      format: boolean
+    skipReason:
+      en: Skip reason
+      ru: Причина пропуска
+      format: text
+    cases:
+      en: Cases
+      ru: Случаи
+      format: number
+    suite:
+      en: Suite
+      ru: Набор
+      format: list
+    subject:
+      en: Subject
+      ru: Тема
+      format: text
+    authoredAt:
+      en: Authored
+      ru: Создан
+      format: date
+    committedAt:
+      en: Committed
+      ru: Зафиксирован
+      format: date
+    merge:
+      en: Merge commit
+      ru: Коммит слияния
+      format: boolean
+    mergedBranch:
+      en: Merged branch
+      ru: Слитая ветка
+      format: text
+    commit:
+      en: Commit
+      ru: Коммит
+      format: text
+    commitCount:
+      en: Commits
+      ru: Коммитов
+      format: number
+    authors:
+      en: Authors
+      ru: Авторы
+      format: list
+    parsed:
+      en: Parsed
+      ru: Разобран
+      format: boolean
+    identifier:
+      en: Identifier
+      ru: Идентификатор
+      format: text
+    document:
+      en: Document
+      ru: Документ
+      format: path
+    framework:
+      en: Framework
+      ru: Фреймворк
+      format: text
+    json:
+      en: JSON logs
+      ru: Журнал JSON
+      format: boolean
+    middleware:
+      en: Middleware
+      ru: Промежуточные обработчики
+      format: list
+    model:
+      en: Model
+      ru: Модель
+      format: text
+    timeout:
+      en: Timeout
+      ru: Таймаут
+      format: text
+edges:
+  - name: code.contains
+    from:
+      - code.repository
+      - code.directory
+    to:
+      - code.directory
+      - code.file
+      - code.gitlink
+    capability: git
+  - name: code.as-is
+    from:
+      - code.repository
+    to:
+      - code.commit
+    capability: git
+  - name: code.history
+    from:
+      - code.repository
+    to:
+      - code.commit
+    capability: git
+  - name: code.parent
+    from:
+      - code.commit
+    to:
+      - code.commit
+    capability: git
+  - name: code.touched
+    from:
+      - code.commit
+    to:
+      - code.file
+    capability: git
+  - name: code.authored
+    from:
+      - code.author
+    to:
+      - code.commit
+    capability: git
+  - name: code.renamed-from
+    from:
+      - code.file
+    to:
+      - code.file
+    repeats: true
+    discriminator: commit
+    capability: git
+
+plugins:
+  - { id: consistency, version: 1, path: plugins/consistency, inputs: [code.file], outputs: [consistency.finding], closure: [plugins/consistency/contract.json, plugins/consistency/main.ts, plugins/consistency/plugin.json] }
+
+problems:
+  rules:
+    missing-reference: { predicate: findings, kind: missing-reference, sonar: bug, severity: major, section: code, action: task, enabled: true, label: { en: "Reference to a missing key", ru: "Ссылка на отсутствующий ключ" } }
+    dangling-reference: { predicate: findings, kind: dangling-reference, sonar: bug, severity: major, section: code, action: task, enabled: true, label: { en: "Edge end names a missing key", ru: "Конец ребра ссылается на отсутствующий ключ" } }
+    removed-end: { predicate: findings, kind: removed-end, sonar: bug, severity: major, section: code, action: task, enabled: true, label: { en: "Edge ends at a removed vertex", ru: "Ребро ведёт к удалённой вершине" } }
+    unevidenced-opinion: { predicate: findings, kind: unevidenced-opinion, sonar: bug, severity: minor, section: code, action: task, enabled: true, label: { en: "Opinion without evidence", ru: "Утверждение без основания" } }
