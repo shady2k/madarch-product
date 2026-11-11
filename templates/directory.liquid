@@ -1,5 +1,5 @@
 {% layout "./entity.liquid" %}
 {% block details %}{% folder title="Files and folders" title-ru="Файлы и папки" %}{% endblock %}
-{% block parts %}{% related title="Around this folder" title-ru="Вокруг этой папки" direction="both" limit=40 %}{% endblock %}
+{% block relations %}{% relations title="Relations" title-ru="Связи" %}{% endblock %}
 {% block around %}{% render "./partials/around.liquid", title="Around this folder", title_ru="Вокруг этой папки" %}{% endblock %}
 {% block describedby %}{% render "./partials/pages-about.liquid", title="Pages about this folder", title_ru="Страницы об этой папке" %}{% endblock %}
