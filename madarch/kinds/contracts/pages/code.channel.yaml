@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Event channel", many: "Event channels" }
+  ru: { one: "Канал событий", many: "Каналы событий" }
+description:
+  en: "A topic or queue that services publish to and read from."
+  ru: "Топик или очередь, в которую сервисы пишут и из которой читают."

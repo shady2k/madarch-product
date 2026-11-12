@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Kubernetes deployment", many: "Kubernetes deployments" }
+  ru: { one: "Развёртывание Kubernetes", many: "Развёртывания Kubernetes" }
+description:
+  en: "A Kubernetes Deployment: image, replicas and probes."
+  ru: "Развёртывание Kubernetes: образ, число реплик и проверки."

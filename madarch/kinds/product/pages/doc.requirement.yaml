@@ -1,0 +1,10 @@
+template: templates/entity-text.md
+source: document
+origin: person
+identifier: [FR, NFR, REQ, PR, US]
+labels:
+  en: { one: "Requirement", many: "Requirements" }
+  ru: { one: "Требование", many: "Требования" }
+description:
+  en: "Another identified item of the documents: a requirement, a story, a feature (FR-1, NFR-2, REQ-3, US-4 ...)."
+  ru: "Другой пронумерованный пункт документов: требование, история, возможность (FR-1, NFR-2, REQ-3, US-4 ...)."

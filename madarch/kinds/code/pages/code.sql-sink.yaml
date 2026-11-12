@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "SQL sink", many: "SQL sinks" }
+  ru: { one: "Выполнение SQL", many: "Места выполнения SQL" }
+description:
+  en: "A call that runs SQL text as it is."
+  ru: "Вызов, который выполняет текст SQL как есть."

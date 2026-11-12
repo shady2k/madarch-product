@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "API operation", many: "API operations" }
+  ru: { one: "Операция API", many: "Операции API" }
+description:
+  en: "An operation an OpenAPI or gRPC contract declares."
+  ru: "Операция, которую объявляет контракт OpenAPI или gRPC."

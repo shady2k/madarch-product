@@ -1,0 +1,9 @@
+template: templates/domain.md
+source: markdown
+folder: docs/domains
+labels:
+  en: { one: "Domain", many: "Domains" }
+  ru: { one: "Домен", many: "Домены" }
+description:
+  en: "A part of the business the product serves, such as payment or ordering: how it works and what implements it."
+  ru: "Часть бизнеса, которую обслуживает продукт, например оплата или заказы: как она работает и что её реализует."

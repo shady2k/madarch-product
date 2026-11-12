@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Process", many: "Processes" }
+  ru: { one: "Процесс", many: "Процессы" }
+description:
+  en: "A program the system starts, and the port it listens on."
+  ru: "Программа, которую запускает система, и порт, который она слушает."

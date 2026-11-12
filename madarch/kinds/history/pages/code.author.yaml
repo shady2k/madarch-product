@@ -1,0 +1,29 @@
+template: templates/author.liquid
+source: graph
+capability: git
+fields:
+  - name: name
+    type: text
+    producers:
+      - git
+  - name: email
+    type: text
+    producers:
+      - git
+key:
+  - name
+  - email
+depends-on:
+  - code.commit
+origin: history
+history: author
+labels:
+  en:
+    one: Author
+    many: Authors
+  ru:
+    one: Автор
+    many: Авторы
+description:
+  en: A person who made commits.
+  ru: Человек, который делал коммиты.

@@ -1,0 +1,10 @@
+template: templates/term.md
+source: document
+origin: person
+terms: ["**/glossary*.md"]
+labels:
+  en: { one: "Glossary term", many: "Glossary terms" }
+  ru: { one: "Термин", many: "Термины" }
+description:
+  en: "A term of the product's language, defined in a glossary."
+  ru: "Слово из языка продукта с определением из глоссария."

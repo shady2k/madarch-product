@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "HTTP route", many: "HTTP routes" }
+  ru: { one: "HTTP-маршрут", many: "HTTP-маршруты" }
+description:
+  en: "An HTTP route a service serves, read from its code."
+  ru: "HTTP-маршрут, который обслуживает сервис, прочитанный из кода."

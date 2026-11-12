@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "File facet", many: "File facets" }
+  ru: { one: "Срез файла", many: "Срезы файлов" }
+description:
+  en: "What the code reader found out about a file: its role and language."
+  ru: "Что читатель кода выяснил о файле: его роль и язык."

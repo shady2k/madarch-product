@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Port", many: "Ports" }
+  ru: { one: "Порт", many: "Порты" }
+description:
+  en: "A network port a service listens on or publishes."
+  ru: "Сетевой порт, который сервис слушает или публикует."

@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Event", many: "Events" }
+  ru: { one: "Событие", many: "События" }
+description:
+  en: "A kind of message sent over a channel."
+  ru: "Вид сообщения, которое передают по каналу."

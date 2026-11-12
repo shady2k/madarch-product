@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Kubernetes service", many: "Kubernetes services" }
+  ru: { one: "Сервис Kubernetes", many: "Сервисы Kubernetes" }
+description:
+  en: "A Kubernetes Service that routes traffic to pods."
+  ru: "Сервис Kubernetes, который направляет трафик на поды."

@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Image", many: "Images" }
+  ru: { one: "Образ", many: "Образы" }
+description:
+  en: "A container image a deployment runs."
+  ru: "Образ контейнера, который запускает развёртывание."

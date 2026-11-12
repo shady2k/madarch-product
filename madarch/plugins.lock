@@ -1,4 +1,5 @@
 # The plugins this product runs (decision 0035, item 20): each one's exact version and the hash of its closure.
 # A fill runs exactly what this lock names. A changed closure needs a person's approval before it runs.
 plugins:
+  - { id: test-quarantine, version: 1.0.1, closure: f276ddb138804b29571a42267d1e7724999a30f1d78cbc692dff29821a0bca60, path: plugins/test-quarantine }
   - { id: consistency, version: 1.0.0, closure: 0bdd24a617edb71b3ffd93f276ae1cd74de26af3b77dff7551d4b7cadfbd4f04, path: plugins/consistency }

@@ -1,0 +1,8 @@
+template: templates/package.md
+source: graph
+labels:
+  en: { one: "Package", many: "Packages" }
+  ru: { one: "Пакет", many: "Пакеты" }
+description:
+  en: "The folder a service's manifest sits in, with its tests and frameworks."
+  ru: "Папка с манифестом сервиса, его тесты и фреймворки."

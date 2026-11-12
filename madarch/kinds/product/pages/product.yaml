@@ -1,0 +1,9 @@
+template: templates/product.md
+source: markdown
+file: docs/product.md
+labels:
+  en: { one: "Product", many: "Products" }
+  ru: { one: "Продукт", many: "Продукты" }
+description:
+  en: "What the product is, for whom, and its architecture: the home page the agent writes."
+  ru: "Что это за продукт, для кого и как устроен: главная страница, которую пишет агент."

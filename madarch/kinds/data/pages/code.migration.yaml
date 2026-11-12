@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Migration", many: "Migrations" }
+  ru: { one: "Миграция", many: "Миграции" }
+description:
+  en: "A step that changes a database's schema, in the order they run."
+  ru: "Шаг, который меняет схему базы данных, в порядке выполнения."

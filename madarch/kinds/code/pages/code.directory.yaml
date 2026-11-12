@@ -1,0 +1,30 @@
+template: templates/directory.liquid
+source: graph
+capability: git
+fields:
+  - name: repository_node
+    type: bigint
+    producers:
+      - git
+    reference: code.repository
+  - name: path_id
+    type: bigint
+    producers:
+      - git
+key:
+  - repository_node
+  - path_id
+depends-on:
+  - code.repository
+details:
+  - path
+labels:
+  en:
+    one: Directory
+    many: Directories
+  ru:
+    one: Папка
+    many: Папки
+description:
+  en: A folder of a code repository, which holds files and further folders.
+  ru: Папка репозитория кода, которая содержит файлы и другие папки.

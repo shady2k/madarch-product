@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Health endpoint", many: "Health endpoints" }
+  ru: { one: "Проверка здоровья", many: "Проверки здоровья" }
+description:
+  en: "The route that tells whether a service is alive."
+  ru: "Маршрут, по которому видно, жив ли сервис."

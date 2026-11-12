@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Setup command", many: "Setup commands" }
+  ru: { one: "Команда запуска", many: "Команды запуска" }
+description:
+  en: "A command the README tells a newcomer to run."
+  ru: "Команда, которую README велит выполнить новичку."

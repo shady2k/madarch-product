@@ -1,0 +1,15 @@
+template: templates/guide.liquid
+source: markdown
+origin: agent
+file: docs/guides/administrator.md
+labels:
+  en:
+    one: Administrator guide
+    many: Administrator guide
+  ru:
+    one: Руководство администратора
+    many: Руководство администратора
+description:
+  en: Grounded setup and operations, with independent walkthrough status.
+  ru: Запуск и эксплуатация с основаниями в исходниках и независимым статусом
+    прохождения.
