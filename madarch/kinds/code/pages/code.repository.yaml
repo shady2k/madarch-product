@@ -17,7 +17,7 @@ fields:
       - git
 key:
   - name
-depends-on: []
+derives-from: []
 history: repositories
 labels:
   en:

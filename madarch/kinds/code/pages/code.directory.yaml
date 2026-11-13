@@ -14,7 +14,7 @@ fields:
 key:
   - repository_node
   - path_id
-depends-on:
+derives-from:
   - code.repository
 details:
   - path

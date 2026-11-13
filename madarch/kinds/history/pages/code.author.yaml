@@ -13,7 +13,7 @@ fields:
 key:
   - name
   - email
-depends-on:
+derives-from:
   - code.commit
 origin: history
 history: author
