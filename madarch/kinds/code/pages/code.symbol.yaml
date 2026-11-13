@@ -1,0 +1,8 @@
+template: templates/symbol.md
+source: graph
+labels:
+  en: { one: "Symbol", many: "Symbols" }
+  ru: { one: "Символ", many: "Символы" }
+description:
+  en: "A function, class or constant, with its callers and callees."
+  ru: "Функция, класс или константа, кто её вызывает и что она вызывает."

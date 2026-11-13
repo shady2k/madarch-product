@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "CI workflow", many: "CI workflows" }
+  ru: { one: "Процесс CI", many: "Процессы CI" }
+description:
+  en: "A continuous-integration workflow file."
+  ru: "Файл процесса непрерывной интеграции."

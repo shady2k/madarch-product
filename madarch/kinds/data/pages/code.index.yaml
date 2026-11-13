@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Index", many: "Indexes" }
+  ru: { one: "Индекс", many: "Индексы" }
+description:
+  en: "A database index."
+  ru: "Индекс базы данных."

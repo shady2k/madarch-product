@@ -1,0 +1,17 @@
+template: templates/correction.liquid
+source: markdown
+origin: person
+folder: docs/corrections
+nav: loop
+labels:
+  en:
+    one: Correction
+    many: Corrections
+  ru:
+    one: Поправка
+    many: Поправки
+description:
+  en: A person's note that a statement is wrong, and why; the agent takes it into
+    account at the next refresh.
+  ru: Заметка человека о том, что утверждение неверно, и почему; агент учтёт её
+    при следующем обновлении.

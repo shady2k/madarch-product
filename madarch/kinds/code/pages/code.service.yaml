@@ -1,0 +1,10 @@
+template: templates/service.md
+source: graph
+relations:
+  - { type: code.contains, to: "code.package:{span.path|dirname}" }
+labels:
+  en: { one: "Service", many: "Services" }
+  ru: { one: "Сервис", many: "Сервисы" }
+description:
+  en: "A deployable part of the system, read from its manifest."
+  ru: "Развёртываемая часть системы, прочитанная из её манифеста."

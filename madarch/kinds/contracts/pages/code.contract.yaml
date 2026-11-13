@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Contract", many: "Contracts" }
+  ru: { one: "Контракт", many: "Контракты" }
+description:
+  en: "An OpenAPI, gRPC or AsyncAPI file that fixes an interface."
+  ru: "Файл OpenAPI, gRPC или AsyncAPI, который фиксирует интерфейс."

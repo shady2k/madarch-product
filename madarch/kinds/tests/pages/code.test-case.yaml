@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Test case", many: "Test cases" }
+  ru: { one: "Тест", many: "Тесты" }
+description:
+  en: "A test, and the code it exercises."
+  ru: "Тест и код, который он проверяет."

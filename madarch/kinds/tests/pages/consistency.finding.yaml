@@ -1,0 +1,15 @@
+template: templates/consistency-finding.liquid
+source: graph
+findings: true
+depends-on: [code.file]
+labels:
+  en: { one: Consistency finding, many: Consistency findings }
+  ru: { one: Нарушение согласованности, many: Нарушения согласованности }
+fields:
+  - { name: id, type: text, binding: "consistency@1.id" }
+  - { name: rule, type: text, binding: "consistency@1.rule" }
+  - { name: subject, type: text, binding: "consistency@1.subject" }
+  - { name: target, type: text, nullable: true, binding: "consistency@1.target" }
+  - { name: cause, type: text, binding: "consistency@1.cause" }
+  - { name: severity, type: text, nullable: true, binding: "consistency@1.severity" }
+key: [id]

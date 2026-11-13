@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Dependency cycle", many: "Dependency cycles" }
+  ru: { one: "Цикл зависимостей", many: "Циклы зависимостей" }
+description:
+  en: "Files or modules that import one another in a ring."
+  ru: "Файлы или модули, которые импортируют друг друга по кругу."

@@ -1,0 +1,8 @@
+template: templates/module.md
+source: graph
+labels:
+  en: { one: "Module", many: "Modules" }
+  ru: { one: "Модуль", many: "Модули" }
+description:
+  en: "A folder of code with a purpose of its own, with the modules it depends on."
+  ru: "Папка кода со своим назначением и модули, от которых она зависит."

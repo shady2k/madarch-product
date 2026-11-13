@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Make target", many: "Make targets" }
+  ru: { one: "Цель make", many: "Цели make" }
+description:
+  en: "A target of a Makefile and the commands it runs."
+  ru: "Цель Makefile и команды, которые она выполняет."

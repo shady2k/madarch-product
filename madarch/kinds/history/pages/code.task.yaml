@@ -1,0 +1,9 @@
+template: templates/item-plain.md
+source: graph
+origin: history
+labels:
+  en: { one: "Task", many: "Tasks" }
+  ru: { one: "Задача", many: "Задачи" }
+description:
+  en: "A tracker task that commit messages name."
+  ru: "Задача трекера, которую называют сообщения коммитов."

@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Logger", many: "Loggers" }
+  ru: { one: "Логгер", many: "Логгеры" }
+description:
+  en: "Where a service sets up its logging."
+  ru: "Место, где сервис настраивает журнал."

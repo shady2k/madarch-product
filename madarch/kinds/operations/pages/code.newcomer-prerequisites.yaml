@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Prerequisites", many: "Prerequisites" }
+  ru: { one: "Что нужно установить", many: "Что нужно установить" }
+description:
+  en: "The tools the README says a newcomer needs."
+  ru: "Инструменты, которые по README нужны новичку."

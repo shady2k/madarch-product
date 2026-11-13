@@ -1,0 +1,8 @@
+template: templates/database.md
+source: graph
+labels:
+  en: { one: "Database", many: "Databases" }
+  ru: { one: "База данных", many: "Базы данных" }
+description:
+  en: "A database a service owns, with its tables and migrations."
+  ru: "База данных сервиса, её таблицы и миграции."

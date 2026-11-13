@@ -1,0 +1,8 @@
+template: templates/table.md
+source: graph
+labels:
+  en: { one: "Table", many: "Tables" }
+  ru: { one: "Таблица", many: "Таблицы" }
+description:
+  en: "A table, its columns and indexes, and the code that reads and writes it."
+  ru: "Таблица, её столбцы и индексы, и код, который её читает и пишет."

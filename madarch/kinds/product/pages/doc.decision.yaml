@@ -1,0 +1,10 @@
+template: templates/entity-text.md
+source: document
+origin: person
+identifier: ADR
+labels:
+  en: { one: "Decision", many: "Decisions" }
+  ru: { one: "Решение", many: "Решения" }
+description:
+  en: "An architecture decision record (ADR-0001 ...): what was decided and why."
+  ru: "Запись об архитектурном решении (ADR-0001 ...): что решили и почему."

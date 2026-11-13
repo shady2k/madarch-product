@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Known failure", many: "Known failures" }
+  ru: { one: "Известная ошибка", many: "Известные ошибки" }
+description:
+  en: "A failure the README names, with its fix."
+  ru: "Ошибка, которую называет README, и как её исправить."

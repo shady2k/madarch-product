@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Lock file", many: "Lock files" }
+  ru: { one: "Файл блокировки", many: "Файлы блокировки" }
+description:
+  en: "A file that pins the exact versions of the dependencies."
+  ru: "Файл, который закрепляет точные версии зависимостей."

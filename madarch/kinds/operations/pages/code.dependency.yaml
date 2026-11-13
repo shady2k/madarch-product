@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Dependency", many: "Dependencies" }
+  ru: { one: "Зависимость", many: "Зависимости" }
+description:
+  en: "A library a service declares, with its version and where it is used."
+  ru: "Библиотека, которую объявляет сервис, её версия и где она используется."

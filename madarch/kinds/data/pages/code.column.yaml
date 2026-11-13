@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Column", many: "Columns" }
+  ru: { one: "Столбец", many: "Столбцы" }
+description:
+  en: "A column of a table with its type."
+  ru: "Столбец таблицы с его типом."

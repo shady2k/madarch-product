@@ -1,0 +1,8 @@
+template: templates/item-plain.md
+source: graph
+labels:
+  en: { one: "Entry point", many: "Entry points" }
+  ru: { one: "Точка входа", many: "Точки входа" }
+description:
+  en: "Where a process of the system starts running."
+  ru: "Место, где начинает работать процесс системы."

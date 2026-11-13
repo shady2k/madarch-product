@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Dockerfile", many: "Dockerfiles" }
+  ru: { one: "Dockerfile", many: "Dockerfile" }
+description:
+  en: "A recipe that builds a container image."
+  ru: "Рецепт сборки образа контейнера."

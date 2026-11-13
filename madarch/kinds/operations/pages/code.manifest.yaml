@@ -1,0 +1,8 @@
+template: templates/item.md
+source: graph
+labels:
+  en: { one: "Manifest", many: "Manifests" }
+  ru: { one: "Манифест", many: "Манифесты" }
+description:
+  en: "A package.json or go.mod file that declares dependencies."
+  ru: "Файл package.json или go.mod, который объявляет зависимости."

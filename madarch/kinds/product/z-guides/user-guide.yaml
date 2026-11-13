@@ -1,0 +1,14 @@
+template: templates/guide.liquid
+source: markdown
+origin: agent
+file: docs/guides/user.md
+labels:
+  en:
+    one: User guide
+    many: User guide
+  ru:
+    one: Руководство пользователя
+    many: Руководство пользователя
+description:
+  en: Supported tasks and API procedures, with known gaps.
+  ru: Поддерживаемые задачи и API-процедуры с известными пробелами.
