@@ -1,4 +1,3 @@
-template: templates/service.md
 source: graph
 relations:
   - { type: code.contains, to: "code.package:{span.path|dirname}" }

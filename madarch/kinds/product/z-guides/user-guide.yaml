@@ -1,4 +1,3 @@
-template: templates/guide.liquid
 source: markdown
 origin: agent
 file: docs/guides/user.md

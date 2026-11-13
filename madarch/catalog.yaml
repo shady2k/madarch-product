@@ -777,7 +777,6 @@ edges:
     to:
       - code.directory
       - code.file
-      - code.gitlink
     capability: git
   - name: code.as-is
     from:

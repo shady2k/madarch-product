@@ -1,4 +1,3 @@
-template: templates/correction.liquid
 source: markdown
 origin: person
 folder: docs/corrections

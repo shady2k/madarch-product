@@ -1,4 +1,3 @@
-template: templates/test-quarantine.liquid
 source: graph
 fields:
 - name: repository
