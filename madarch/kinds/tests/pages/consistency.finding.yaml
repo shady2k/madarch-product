@@ -1,7 +1,67 @@
 template: templates/consistency-finding.liquid
 source: graph
 findings: true
-depends-on: [code.file]
+derives-from:
+  - administrator-guide
+  - code.author
+  - code.channel
+  - code.ci-job
+  - code.ci-workflow
+  - code.column
+  - code.commit
+  - code.compose-service
+  - code.contract
+  - code.cycle
+  - code.database
+  - code.dependency
+  - code.directory
+  - code.dockerfile
+  - code.entry-point
+  - code.env-definition
+  - code.env-var
+  - code.facet
+  - code.file
+  - code.health-endpoint
+  - code.image
+  - code.index
+  - code.input
+  - code.k8s-deployment
+  - code.k8s-service
+  - code.lockfile
+  - code.logger
+  - code.make-target
+  - code.manifest
+  - code.message
+  - code.metrics-endpoint
+  - code.migration
+  - code.module
+  - code.newcomer-command
+  - code.newcomer-failure
+  - code.newcomer-prerequisites
+  - code.operation
+  - code.package
+  - code.port
+  - code.process
+  - code.repository
+  - code.route
+  - code.service
+  - code.sql-build
+  - code.sql-sink
+  - code.symbol
+  - code.table
+  - code.task
+  - code.test-case
+  - code.test-quarantine
+  - correction
+  - doc.decision
+  - doc.requirement
+  - doc.rule
+  - doc.term
+  - doc.use-case
+  - domain
+  - product
+  - question
+  - user-guide
 labels:
   en: { one: Consistency finding, many: Consistency findings }
   ru: { one: Нарушение согласованности, many: Нарушения согласованности }

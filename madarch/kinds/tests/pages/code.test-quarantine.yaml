@@ -33,7 +33,7 @@ key:
 - repository
 - path
 - name
-depends-on:
+derives-from:
 - code.file
 - code.test-case
 - code.commit

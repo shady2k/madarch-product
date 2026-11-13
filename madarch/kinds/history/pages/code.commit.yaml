@@ -37,7 +37,8 @@ fields:
       - git
 key:
   - hash
-depends-on:
+derives-from:
+  - code.file
   - code.repository
 origin: history
 history: commit
