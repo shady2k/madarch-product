@@ -1,4 +1,3 @@
-template: templates/item-plain.md
 source: graph
 labels:
   en: { one: "Image", many: "Images" }

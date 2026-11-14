@@ -1,4 +1,3 @@
-template: templates/product.md
 source: markdown
 file: docs/product.md
 labels:

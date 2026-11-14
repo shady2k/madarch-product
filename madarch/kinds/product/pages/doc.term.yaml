@@ -1,4 +1,3 @@
-template: templates/term.md
 source: document
 origin: person
 terms: ["**/glossary*.md"]

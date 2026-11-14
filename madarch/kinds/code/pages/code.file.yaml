@@ -1,4 +1,3 @@
-template: templates/file.liquid
 source: graph
 capability: git
 fields:

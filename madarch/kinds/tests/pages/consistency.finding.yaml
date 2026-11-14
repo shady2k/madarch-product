@@ -1,4 +1,3 @@
-template: templates/consistency-finding.liquid
 source: graph
 findings: true
 derives-from:
